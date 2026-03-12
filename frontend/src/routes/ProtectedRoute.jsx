@@ -4,15 +4,15 @@ import React from "react";
 
 export default function ProtectedRoute({ children, role }) {
 
-const { token } = useAuth();
-const userRole = localStorage.getItem("role");
+const { token, user } = useAuth();
+const userRole = user?.role;
 
 if (!token) {
 return <Navigate to="/login" />;
 }
 
 if (role && userRole !== role) {
-return <Navigate to="/dashboard" />;
+return <Navigate to={userRole === "ADMIN" ? "/admin/dashboard" : "/dashboard"} />;
 }
 
 return children;

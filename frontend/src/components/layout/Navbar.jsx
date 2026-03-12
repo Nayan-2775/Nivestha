@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Bell } from "lucide-react";
 import API from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Navbar(){
 
-const user = JSON.parse(localStorage.getItem("user") || "{}");
+const { user } = useAuth();
 const [notifications,setNotifications] = useState([]);
 const [loading,setLoading] = useState(false);
 const [open,setOpen] = useState(false);

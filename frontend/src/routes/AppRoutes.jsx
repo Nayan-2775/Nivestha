@@ -1,5 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 /* Investor Layout */
 import DashboardLayout from "../components/layout/DashboardLayout";
@@ -27,18 +29,35 @@ import AdminTransactionsPage from "../pages/admin/AdminTransactionsPage";
 
 export default function AppRoutes() {
 
+const { token, user } = useAuth();
+const defaultHome =
+!token
+? "/login"
+: user?.role === "ADMIN"
+? "/admin/dashboard"
+: "/dashboard";
+
 return (
 
 <Routes>
 
 {/* Public Routes */}
 
+<Route path="/" element={<Navigate to={defaultHome} replace />} />
+
 <Route path="/login" element={<Login />} />
 <Route path="/register" element={<Register />} />
 
 {/* Investor Routes */}
 
-<Route path="/" element={<DashboardLayout />}>
+<Route
+path="/"
+element={
+<ProtectedRoute role="INVESTOR">
+<DashboardLayout />
+</ProtectedRoute>
+}
+>
 
 <Route path="dashboard" element={<InvestorDashboard />} />
 <Route path="wallet" element={<WalletPage />} />
@@ -51,7 +70,14 @@ return (
 
 {/* Admin Routes */}
 
-<Route path="/admin" element={<AdminLayout />}>
+<Route
+path="/admin"
+element={
+<ProtectedRoute role="ADMIN">
+<AdminLayout />
+</ProtectedRoute>
+}
+>
 
 <Route path="dashboard" element={<AdminDashboard />} />
 <Route path="users" element={<UsersPage />} />

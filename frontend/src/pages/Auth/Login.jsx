@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
 
 const navigate = useNavigate();
+const { login } = useAuth();
 
 const [email,setEmail] = useState("");
 const [password,setPassword] = useState("");
@@ -19,14 +21,7 @@ email,
 password
 });
 
-// save token
-localStorage.setItem("token", res.data.token);
-
-// ⭐ save user info
-localStorage.setItem(
-"user",
-JSON.stringify(res.data.user)
-);
+login(res.data.token, res.data.user);
 
 const role = res.data.user.role;
 
@@ -48,7 +43,6 @@ return(
 
 <div className="min-h-screen flex">
 
-{/* Left Side Branding */}
 <div className="hidden lg:flex w-1/2 bg-blue-600 text-white items-center justify-center p-12">
 
 <div>
@@ -66,8 +60,6 @@ Grow your wealth securely.
 
 </div>
 
-
-{/* Right Side Form */}
 <div className="flex w-full lg:w-1/2 items-center justify-center bg-gray-50">
 
 <form

@@ -10,11 +10,12 @@ const propertyInput =
 req.body.property_id ??
 req.body.propertyId;
 
-const rentInput =
-req.body.total_rent ??
-req.body.totalRent ??
-req.body.rent_amount ??
-req.body.rentAmount;
+const percentageInput =
+req.body.distribution_percentage ??
+req.body.distributionPercentage ??
+req.body.percentage ??
+req.body.rent_percentage ??
+req.body.rentPercentage;
 
 let property_id = propertyInput;
 
@@ -27,12 +28,17 @@ property_id.value;
 }
 
 const totalRent =
-Number(String(rentInput ?? "").replaceAll(",","").trim());
+Number(String(percentageInput ?? "").replaceAll(",","").trim());
 
-if(!property_id || !Number.isFinite(totalRent) || totalRent <= 0){
+if(
+!property_id ||
+!Number.isFinite(totalRent) ||
+totalRent < 3 ||
+totalRent > 4
+){
 return res.status(400).json({
 success:false,
-message:"Invalid property or rent amount"
+message:"Distribution percentage must be between 3% and 4%"
 });
 }
 
@@ -40,7 +46,7 @@ await client.query("BEGIN");
 
 const propertyRes = await client.query(
 `
-SELECT total_shares, title
+SELECT title
 FROM properties
 WHERE property_id=$1
 FOR UPDATE
@@ -56,23 +62,14 @@ message:"Property not found"
 });
 }
 
-const totalShares = Number(propertyRes.rows[0].total_shares);
 const propertyTitle = propertyRes.rows[0].title;
-
-if(!Number.isFinite(totalShares) || totalShares <= 0){
-await client.query("ROLLBACK");
-return res.status(400).json({
-success:false,
-message:"Invalid total shares for property"
-});
-}
 
 const investors = await client.query(
 `
-SELECT user_id, shares
+SELECT user_id, amount_invested
 FROM investments
 WHERE property_id=$1
-AND shares > 0
+AND amount_invested > 0
 ORDER BY user_id
 `,
 [property_id]
@@ -86,33 +83,24 @@ message:"No investors found for this property"
 });
 }
 
-const totalPaise = Math.round(totalRent * 100);
-let distributedPaise = 0;
+let totalDistributed = 0;
+let creditedInvestors = 0;
 
 for(let i = 0; i < investors.rows.length; i++){
 
 const inv = investors.rows[i];
-const shares = Number(inv.shares);
+const investedAmount = Number(inv.amount_invested);
 
-if(!Number.isFinite(shares) || shares <= 0){
+if(!Number.isFinite(investedAmount) || investedAmount <= 0){
 continue;
 }
 
-let amountPaise;
+const amount =
+Number(((investedAmount * totalRent) / 100).toFixed(2));
 
-if(i === investors.rows.length - 1){
-amountPaise = totalPaise - distributedPaise;
-}
-else{
-amountPaise = Math.round((shares / totalShares) * totalPaise);
-distributedPaise += amountPaise;
-}
-
-if(!Number.isFinite(amountPaise) || amountPaise <= 0){
+if(!Number.isFinite(amount) || amount <= 0){
 continue;
 }
-
-const amount = amountPaise / 100;
 
 const walletRes = await client.query(
 `
@@ -158,13 +146,19 @@ inv.user_id,
 ]
 );
 
+creditedInvestors += 1;
+totalDistributed += amount;
+
 }
 
 await client.query("COMMIT");
 
 res.json({
 success:true,
-message:"Rent distributed successfully"
+message:`Rent distributed successfully at ${totalRent}%`,
+distribution_percentage: totalRent,
+total_distributed: Number(totalDistributed.toFixed(2)),
+credited_investors: creditedInvestors
 });
 
 }

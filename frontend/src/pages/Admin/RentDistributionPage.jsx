@@ -5,7 +5,7 @@ export default function RentDistributionPage(){
 
 const [properties,setProperties] = useState([]);
 const [property_id,setPropertyId] = useState("");
-const [rent,setRent] = useState("");
+const [percentage,setPercentage] = useState("3");
 
 useEffect(()=>{
 loadProperties();
@@ -33,21 +33,31 @@ console.log(err);
 
 const distributeRent = async ()=>{
 
-if(!property_id || !rent){
+const distributionPercentage = Number(percentage);
+
+if(!property_id || !distributionPercentage){
 alert("Please fill all fields");
+return;
+}
+
+if(distributionPercentage < 3 || distributionPercentage > 4){
+alert("Distribution percentage must be between 3% and 4%");
 return;
 }
 
 try{
 
-await API.post("/admin/distribute-rent",{
+const res = await API.post("/admin/distribute-rent",{
 property_id,
-rent_amount:Number(rent)
+distribution_percentage:distributionPercentage
 });
 
-alert("Rent distributed successfully");
+alert(
+res.data.message ||
+"Rent distributed successfully"
+);
 
-setRent("");
+setPercentage("3");
 
 }catch(err){
 
@@ -83,14 +93,18 @@ onChange={(e)=>setPropertyId(e.target.value)}
 
 </select>
 
-<label style={label}>Total Monthly Rent</label>
+<label style={label}>Distribution Percentage</label>
 
 <input
 style={input}
-placeholder="Enter rent amount"
-value={rent}
-onChange={(e)=>setRent(e.target.value)}
+placeholder="Enter percentage between 3 and 4"
+value={percentage}
+onChange={(e)=>setPercentage(e.target.value)}
 />
+
+<p style={helperText}>
+Each investor will receive this percentage of their invested amount for the selected property.
+</p>
 
 <button
 style={btn}
@@ -142,6 +156,12 @@ padding:"10px",
 borderRadius:"8px",
 border:"1px solid #e2e8f0",
 fontSize:"14px"
+};
+
+const helperText={
+fontSize:"12px",
+color:"#64748b",
+margin:"0"
 };
 
 const btn={
