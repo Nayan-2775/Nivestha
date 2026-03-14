@@ -316,9 +316,9 @@ formatCurrency(prediction[property.property_id].growth_amount)
 </p>
 
 <p>
-Per Share (Now -> Future): {
+Per Share (Now -{">"} Future): {
 formatCurrency(prediction[property.property_id].current_per_share)
-} -> {
+} -{">"} {
 formatCurrency(prediction[property.property_id].predicted_per_share)
 }
 </p>
