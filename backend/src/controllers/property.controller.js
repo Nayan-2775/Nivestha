@@ -115,6 +115,7 @@ p.location,
 p.total_value,
 p.total_shares,
 p.available_shares,
+p.roi,
 ROUND(p.total_value / p.total_shares,2) AS share_price,
 pi.image_url AS primary_image
 FROM properties p
@@ -136,7 +137,6 @@ image = image.replace("/uploads/","");
 
 return{
 ...p,
-roi:12,
 primary_image: image
 ? `http://localhost:5000/uploads/${image}`
 : null
@@ -209,7 +209,6 @@ res.json({
 success:true,
 property:{
 ...property.rows[0],
-roi:12,
 images:imageUrls
 }
 });
