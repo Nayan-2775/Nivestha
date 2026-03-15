@@ -188,7 +188,7 @@ export default function InvestorDashboard(){
               <XAxis dataKey="label" tick={{ fill: "#64748b", fontSize: 12 }} axisLine={false} tickLine={false} />
               <YAxis tickFormatter={compactCurrency} tick={{ fill: "#64748b", fontSize: 12 }} axisLine={false} tickLine={false} width={84} />
               <Tooltip
-                formatter={(value, name) => [formatCurrency(value), name === "invested" ? "Invested" : "Rent Earned"]}
+                formatter={(value, _name, item) => [formatCurrency(value), item?.name || "Value"]}
                 labelStyle={{ color: "#0f172a", fontWeight: 600 }}
                 contentStyle={{ borderRadius: "14px", border: "1px solid #dbe4f0", boxShadow: "0 18px 40px rgba(15,23,42,0.12)" }}
               />
