@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import BrandLogo from "../brand/BrandLogo";
 
 import {
 LayoutDashboard,
@@ -35,8 +36,7 @@ style={{...logoBox,color:"inherit",textDecoration:"none"}}
 aria-label="Nivestha home"
 title="Go to your home page"
 >
-<div style={logoCircle}>N</div>
-<h2 style={logoText}>Nivestha</h2>
+<BrandLogo />
 </NavLink>
 
 
@@ -98,19 +98,3 @@ padding:"0 18px",
 marginBottom:"25px"
 };
 
-const logoCircle={
-width:"36px",
-height:"36px",
-borderRadius:"8px",
-background:"#2563eb",
-display:"flex",
-alignItems:"center",
-justifyContent:"center",
-fontWeight:"bold",
-fontSize:"18px"
-};
-
-const logoText={
-fontSize:"18px",
-fontWeight:"600"
-};

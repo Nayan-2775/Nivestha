@@ -17,6 +17,15 @@ button { touch-action: manipulation; }
 .mobile-home-brand { display:none; }
 .app-sidebar { box-sizing:border-box; }
 .app-sidebar.is-collapsed .sidebar-label { display:none; }
+.brand-logo { display:inline-flex; align-items:center; gap:10px; min-width:0; }
+.brand-logo-mark-wrap { width:42px; height:42px; flex:0 0 42px; display:grid; place-items:center; overflow:hidden; border:1px solid rgba(148,163,184,.28); border-radius:13px; background:linear-gradient(145deg,#fff 0%,#f1f5f9 100%); box-shadow:0 3px 9px rgba(2,8,23,.16), inset 0 1px 0 rgba(255,255,255,.95); }
+.brand-logo-mark { display:block; width:34px; height:34px; }
+.brand-logo-copy { display:flex; flex-direction:column; min-width:0; gap:2px; }
+.brand-logo-name { color:#fff; font-size:17px; font-weight:800; letter-spacing:.055em; line-height:1; white-space:nowrap; }
+.brand-logo-name > span { color:#c9a34e; }
+.brand-logo-tagline { color:#cbd5e1; font-size:7px; font-weight:700; letter-spacing:.12em; line-height:1.2; white-space:nowrap; }
+.brand-logo-compact .brand-logo-copy { display:none; }
+.app-sidebar .sidebar-brand { min-height:48px; }
 .table-scroll { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
 .transactions-mobile-list { display:none; }
 .wallet-table-scroll { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid #e2e8f0; border-radius:12px; }
@@ -45,8 +54,12 @@ button { touch-action: manipulation; }
   .app-sidebar .sidebar-label[data-short]::after { content:attr(data-short); font-size:9px; }
   .app-sidebar a svg { width:19px; height:19px; }
   .app-navbar { padding:0 14px !important; justify-content:space-between !important; }
-  .mobile-home-brand { display:flex; align-items:center; gap:8px; color:#0f172a; text-decoration:none; font-size:14px; font-weight:700; }
-  .mobile-home-mark { width:30px; height:30px; display:grid; place-items:center; border-radius:9px; background:#2563eb; color:#fff; }
+  .mobile-home-brand { display:flex; align-items:center; color:#0f172a; text-decoration:none; }
+  .mobile-home-brand .brand-logo { gap:7px; }
+  .mobile-home-brand .brand-logo-mark-wrap { width:34px; height:34px; flex-basis:34px; border-radius:10px; }
+  .mobile-home-brand .brand-logo-mark { width:29px; height:29px; }
+  .mobile-home-brand .brand-logo-name { color:#10264a; font-size:13px; }
+  .mobile-home-brand .brand-logo-tagline { display:none; }
   .app-navbar .welcome-text { max-width:52vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:13px; }
   .app-navbar .notification-panel { position:fixed !important; top:66px !important; left:12px !important; right:12px !important; width:auto !important; max-width:none !important; }
   h1 { font-size:clamp(1.45rem, 6vw, 2rem); }

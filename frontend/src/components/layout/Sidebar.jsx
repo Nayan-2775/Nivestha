@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import { NavLink } from "react-router-dom";
 import { LayoutDashboard, Wallet, ArrowLeftRight, Building, Briefcase } from "lucide-react";
+import BrandLogo from "../brand/BrandLogo";
 
 export default function Sidebar(){
 
@@ -31,17 +32,6 @@ justifyContent:collapsed?"center":"flex-start",
 gap:"10px",
 marginBottom:"30px",
 fontSize:"18px",
-fontWeight:"bold"
-};
-
-const logoIcon={
-width:"36px",
-height:"36px",
-borderRadius:"8px",
-background:"#2563eb",
-display:"flex",
-alignItems:"center",
-justifyContent:"center",
 fontWeight:"bold"
 };
 
@@ -81,11 +71,7 @@ style={{...logoStyle,color:"inherit",textDecoration:"none"}}
 aria-label="Nivestha home"
 title="Go to your home page"
 >
-
-<div style={logoIcon}>N</div>
-
-{!collapsed && <span>Nivestha</span>}
-
+<BrandLogo compact={collapsed} />
 </NavLink>
 
 {/* NAV LINKS */}
