@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { Bell } from "lucide-react";
 import API from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
@@ -63,6 +64,11 @@ return ()=>document.removeEventListener("mousedown",onClickOutside);
 return(
 
 <div className="app-navbar" style={navbar}>
+
+<NavLink to="/" className="mobile-home-brand" aria-label="Nivestha home" title="Go to your home page">
+<span className="mobile-home-mark">N</span>
+<span>Nivestha</span>
+</NavLink>
 
 <div style={rightGroup} ref={panelRef}>
 

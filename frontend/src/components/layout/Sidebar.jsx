@@ -74,13 +74,19 @@ onMouseLeave={()=>setCollapsed(true)}
 
 {/* LOGO */}
 
-<div className="sidebar-brand" style={logoStyle}>
+<NavLink
+to="/"
+className="sidebar-brand"
+style={{...logoStyle,color:"inherit",textDecoration:"none"}}
+aria-label="Nivestha home"
+title="Go to your home page"
+>
 
 <div style={logoIcon}>N</div>
 
 {!collapsed && <span>Nivestha</span>}
 
-</div>
+</NavLink>
 
 {/* NAV LINKS */}
 

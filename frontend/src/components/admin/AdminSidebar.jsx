@@ -28,10 +28,16 @@ return(
 
 {/* LOGO */}
 
-<div className="sidebar-brand" style={logoBox}>
+<NavLink
+to="/"
+className="sidebar-brand"
+style={{...logoBox,color:"inherit",textDecoration:"none"}}
+aria-label="Nivestha home"
+title="Go to your home page"
+>
 <div style={logoCircle}>N</div>
 <h2 style={logoText}>Nivestha</h2>
-</div>
+</NavLink>
 
 
 {/* MENU */}

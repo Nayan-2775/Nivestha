@@ -14,6 +14,7 @@ button { touch-action: manipulation; }
 .app-main.admin-main { width:calc(100% - 220px); margin-left:220px; }
 .app-page { flex:1; width:100%; max-width:1400px; margin:0 auto; padding:30px; display:flex; flex-direction:column; gap:25px; min-width:0; }
 .app-navbar { min-height:60px; }
+.mobile-home-brand { display:none; }
 .app-sidebar { box-sizing:border-box; }
 .app-sidebar.is-collapsed .sidebar-label { display:none; }
 .table-scroll { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
@@ -43,7 +44,9 @@ button { touch-action: manipulation; }
   .app-sidebar .sidebar-label[data-short] { font-size:0; }
   .app-sidebar .sidebar-label[data-short]::after { content:attr(data-short); font-size:9px; }
   .app-sidebar a svg { width:19px; height:19px; }
-  .app-navbar { padding:0 14px !important; }
+  .app-navbar { padding:0 14px !important; justify-content:space-between !important; }
+  .mobile-home-brand { display:flex; align-items:center; gap:8px; color:#0f172a; text-decoration:none; font-size:14px; font-weight:700; }
+  .mobile-home-mark { width:30px; height:30px; display:grid; place-items:center; border-radius:9px; background:#2563eb; color:#fff; }
   .app-navbar .welcome-text { max-width:52vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:13px; }
   .app-navbar .notification-panel { position:fixed !important; top:66px !important; left:12px !important; right:12px !important; width:auto !important; max-width:none !important; }
   h1 { font-size:clamp(1.45rem, 6vw, 2rem); }
