@@ -28,6 +28,16 @@ button { touch-action: manipulation; }
 .app-sidebar .sidebar-brand { min-height:48px; }
 .table-scroll { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
 .transactions-mobile-list { display:none; }
+.site-footer { margin-top:auto; background:#0b1427; color:#e2e8f0; border-top:1px solid #26344e; }
+.footer-content { width:100%; max-width:1400px; margin:0 auto; padding:30px 30px 15px; }
+.footer-main-row { display:grid; grid-template-columns:minmax(190px,.8fr) minmax(220px,1fr) minmax(280px,1fr); align-items:center; gap:28px; padding-bottom:24px; }
+.footer-brand { display:inline-flex; width:max-content; text-decoration:none; }
+.footer-description { max-width:310px; margin:0; color:#a9b7cb; font-size:14px; line-height:1.7; }
+.footer-nav-heading { margin:0 0 12px; color:#f8fafc; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+.footer-nav-links { display:flex; flex-wrap:wrap; gap:10px 20px; }
+.footer-nav-links a { color:#a9b7cb; font-size:13px; text-decoration:none; transition:color .16s ease; }
+.footer-nav-links a:hover { color:#7ce4ca; }
+.footer-bottom-row { display:flex; justify-content:space-between; gap:16px; padding-top:14px; border-top:1px solid #26344e; color:#8190a8; font-size:12px; }
 .wallet-table-scroll { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid #e2e8f0; border-radius:12px; }
 .wallet-transactions-table { min-width:100%; }
 .wallet-transactions-table thead { background:#f8fafc; }
@@ -40,10 +50,15 @@ button { touch-action: manipulation; }
 
 @media (max-width: 900px) {
   .app-page { padding:24px; }
+  .footer-content { padding:26px 24px 14px; }
+  .footer-main-row { grid-template-columns:minmax(180px,1fr) minmax(240px,1.2fr); gap:20px; }
+  .footer-description { grid-column:1; }
+  .footer-navigation { grid-column:2; grid-row:1 / span 2; }
 }
 
 @media (max-width: 640px) {
   .app-main, .app-main.admin-main { width:100%; margin-left:0; padding-bottom:72px; }
+  .app-main > footer { display:none !important; }
   .app-page { padding:18px 14px; gap:20px; }
   .app-sidebar { top:auto !important; bottom:0 !important; left:0 !important; right:0 !important; width:100% !important; height:64px !important; padding:5px 4px !important; flex-direction:row !important; justify-content:space-around !important; align-items:stretch !important; gap:2px !important; box-shadow:0 -5px 20px rgba(15,23,42,.16); }
   .app-sidebar .sidebar-brand { display:none !important; }
@@ -61,6 +76,9 @@ button { touch-action: manipulation; }
   .mobile-home-brand .brand-logo-name { color:#10264a; font-size:13px; }
   .mobile-home-brand .brand-logo-tagline { display:none; }
   .app-navbar .welcome-text { max-width:52vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:13px; }
+  .app-navbar .welcome-text { max-width:32vw; }
+  .app-navbar .notification-group { gap:8px; }
+  .app-navbar .notification-group > button { flex:0 0 36px; }
   .app-navbar .notification-panel { position:fixed !important; top:66px !important; left:12px !important; right:12px !important; width:auto !important; max-width:none !important; }
   h1 { font-size:clamp(1.45rem, 6vw, 2rem); }
   h2 { font-size:clamp(1.25rem, 5vw, 1.6rem); }
@@ -101,4 +119,5 @@ button { touch-action: manipulation; }
 
 @media (max-width: 420px) {
   .app-page { padding:16px 12px; }
+  .footer-bottom-row { flex-direction:column; gap:6px; }
 }

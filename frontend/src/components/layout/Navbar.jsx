@@ -70,11 +70,15 @@ return(
 <BrandLogo />
 </NavLink>
 
-<div style={rightGroup} ref={panelRef}>
+<div className="notification-group" style={rightGroup} ref={panelRef}>
+
+<div className="welcome-text" style={welcomeText}>Welcome, {user?.full_name}</div>
 
 <button
 style={bellBtn}
 onClick={()=>setOpen((prev)=>!prev)}
+aria-label="Notifications"
+title="Notifications"
 >
 <Bell size={18}/>
 {unreadCount > 0 && (
@@ -120,8 +124,6 @@ Mark as read
 )}
 </div>
 )}
-
-<div className="welcome-text" style={welcomeText}>Welcome, {user?.full_name}</div>
 
 </div>
 
