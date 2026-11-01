@@ -27,6 +27,10 @@ dotenv.config();
 
 const app = express();
 
+if (process.env.TRUST_PROXY === "true") {
+  app.set("trust proxy", 1);
+}
+
 app.use("/uploads",express.static(path.join(process.cwd(),"uploads")));
 /* ===============================
    1️⃣ SECURITY MIDDLEWARE
@@ -35,16 +39,19 @@ app.use("/uploads",express.static(path.join(process.cwd(),"uploads")));
 // Secure HTTP headers
 app.use(helmet());
 
-// Enable CORS
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:3000"
-    ],
-    credentials: true,
-  })
-);
+// Allow the deployed frontend origin(s), with local defaults for development.
+const allowedOrigins = (process.env.CLIENT_URLS || process.env.CLIENT_URL || "http://localhost:5173,http://localhost:3000")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error("Origin is not allowed by CORS"));
+  },
+  credentials: true,
+}));
 
 // Rate limiting (prevent brute force / abuse)
 const limiter = rateLimit({

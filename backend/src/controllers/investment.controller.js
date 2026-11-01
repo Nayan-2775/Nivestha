@@ -1,5 +1,6 @@
 import pool from "../config/db.js";
 import auditLog from "../utils/auditLog.js";
+import getPublicBaseUrl from "../utils/publicBaseUrl.js";
 
 /**
  * =====================================================
@@ -172,64 +173,21 @@ export const investInProperty = async (req, res) => {
 
 
     /**
-     * 6. Insert or update investment
+     * 6. Aggregate repeat purchases into the unique user/property row.
      */
-    const checkInvestment =
-      await client.query(
-
-        `
-        SELECT investment_id
-        FROM investments
-        WHERE user_id=$1
-        AND property_id=$2
-        `,
-
-        [userId, property_id]
-
-      );
-
-
-    if (checkInvestment.rowCount === 0) {
-
-      await client.query(
-
-        `
-        INSERT INTO investments
-        (user_id,property_id,shares,amount_invested)
-        VALUES($1,$2,$3,$4)
-        `,
-
-        [
-          userId,
-          property_id,
-          shares,
-          investmentAmount
-        ]
-
-      );
-
-    }
-
-    else {
-
-      await client.query(
-
-        `
-        UPDATE investments
-        SET shares = shares + $1,
-        amount_invested = amount_invested + $2
-        WHERE investment_id=$3
-        `,
-
-        [
-          shares,
-          investmentAmount,
-          checkInvestment.rows[0].investment_id
-        ]
-
-      );
-
-    }
+    await client.query(
+      `
+      INSERT INTO investments
+      (user_id,property_id,shares,amount_invested)
+      VALUES($1,$2,$3,$4)
+      ON CONFLICT (user_id, property_id)
+      DO UPDATE SET
+        shares = investments.shares + EXCLUDED.shares,
+        amount_invested = investments.amount_invested + EXCLUDED.amount_invested,
+        updated_at = CURRENT_TIMESTAMP
+      `,
+      [userId, property_id, shares, investmentAmount]
+    );
 
 
 
@@ -465,16 +423,17 @@ export const getMyInvestments = async (req, res) => {
 
 
 
-    const portfolio = result.rows.map(item => ({
+    const publicBaseUrl = getPublicBaseUrl(req);
+    const portfolio = result.rows.map(item => {
+      const imageName = item.property_image?.replace(/^\/?uploads\//, "");
 
-      ...item,
-
-      property_image:
-        item.property_image
-        ? `${process.env.BASE_URL}/uploads/${item.property_image}`
-        : null
-
-    }));
+      return {
+        ...item,
+        property_image: imageName
+          ? `${publicBaseUrl}/uploads/${imageName}`
+          : null
+      };
+    });
 
 
 

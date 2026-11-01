@@ -5,22 +5,29 @@ dotenv.config();
 
 const { Pool } = pkg;
 
-const pool = new Pool({
+const ssl = process.env.DB_SSL === "true"
+  ? { rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== "false" }
+  : undefined;
 
-  user: "postgres",
+const poolConfig = process.env.DATABASE_URL
+  ? { connectionString: process.env.DATABASE_URL }
+  : {
+      user: process.env.DB_USER || "postgres",
+      host: process.env.DB_HOST || "localhost",
+      database: process.env.DB_NAME || "nivestha_db",
+      password: process.env.DB_PASSWORD,
+      port: Number(process.env.DB_PORT || 5432),
+    };
 
-  host: "localhost",
+if (ssl) poolConfig.ssl = ssl;
 
-  database: "nivestha_db",
-
-  password: "Nayan@2775",   // ✅ use REAL password here (NOT encoded)
-
-  port: 5432,
-
-});
+const pool = new Pool(poolConfig);
 
 pool.connect()
-  .then(() => console.log("✅ PostgreSQL Connected Successfully"))
-  .catch(err => console.error("❌ PostgreSQL Connection Error:", err.message));
+  .then((client) => {
+    client.release();
+    console.log("PostgreSQL connected successfully");
+  })
+  .catch((err) => console.error("PostgreSQL connection error:", err.message));
 
 export default pool;

@@ -1,4 +1,5 @@
 import pool from "../config/db.js";
+import getPublicBaseUrl from "../utils/publicBaseUrl.js";
 
 /**
  * ===============================
@@ -127,6 +128,7 @@ ORDER BY p.created_at DESC
 `
 );
 
+const publicBaseUrl = getPublicBaseUrl(req);
 const properties = result.rows.map(p=>{
 
 let image = p.primary_image;
@@ -138,7 +140,7 @@ image = image.replace("/uploads/","");
 return{
 ...p,
 primary_image: image
-? `http://localhost:5000/uploads/${image}`
+? `${publicBaseUrl}/uploads/${image}`
 : null
 };
 
@@ -194,13 +196,14 @@ ORDER BY is_primary DESC
 [id]
 );
 
+const publicBaseUrl = getPublicBaseUrl(req);
 const imageUrls = images.rows.map(img=>{
 
 let image = img.image_url.replace("/uploads/","");
 
 return{
 ...img,
-image_url:`http://localhost:5000/uploads/${image}`
+image_url:`${publicBaseUrl}/uploads/${image}`
 };
 
 });
