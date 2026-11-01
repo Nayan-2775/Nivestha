@@ -52,6 +52,22 @@ return(
 
 ) : (
 
+<>
+<div className="transactions-mobile-list">
+{transactions.map((tx)=>{
+const typeClass = tx.type === "deposit" ? "deposit" : tx.type === "withdraw" ? "withdraw" : "investment";
+return (
+<article className="transaction-mobile-card" key={tx.transaction_id}>
+<div className="transaction-mobile-heading">
+<span className={`transaction-type-badge ${typeClass}`}>{tx.type?.replaceAll("_", " ")}</span>
+<time>{new Date(tx.created_at).toLocaleDateString()}</time>
+</div>
+<strong className="transaction-mobile-amount">₹ {Number(tx.amount).toLocaleString()}</strong>
+</article>
+);
+})}
+</div>
+<div className="transactions-table-wrap">
 <table style={tableStyle}>
 
 <thead style={tableHead}>
@@ -118,6 +134,8 @@ fontSize:"12px"
 </tbody>
 
 </table>
+</div>
+</>
 
 )}
 
@@ -149,7 +167,8 @@ background:"#fff",
 padding:"25px",
 borderRadius:"12px",
 boxShadow:"0 4px 12px rgba(0,0,0,0.08)",
-width:"100%"
+width:"100%",
+minWidth:0
 };
 
 const tableStyle={

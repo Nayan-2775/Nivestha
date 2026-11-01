@@ -66,6 +66,7 @@ marginBottom:"5px"
 return(
 
 <div
+className={`app-sidebar ${collapsed ? "is-collapsed" : ""}`}
 style={sidebarStyle}
 onMouseEnter={()=>setCollapsed(false)}
 onMouseLeave={()=>setCollapsed(true)}
@@ -73,39 +74,39 @@ onMouseLeave={()=>setCollapsed(true)}
 
 {/* LOGO */}
 
-<div style={logoStyle}>
+<div className="sidebar-brand" style={logoStyle}>
 
 <div style={logoIcon}>N</div>
 
-{!collapsed && "Nivestha"}
+{!collapsed && <span>Nivestha</span>}
 
 </div>
 
 {/* NAV LINKS */}
 
-<NavLink to="/dashboard" style={linkStyle}>
+<NavLink to="/dashboard" title="Dashboard" aria-label="Dashboard" style={linkStyle}>
 <LayoutDashboard size={20}/>
-{!collapsed && "Dashboard"}
+<span className="sidebar-label">Dashboard</span>
 </NavLink>
 
-<NavLink to="/wallet" style={linkStyle}>
+<NavLink to="/wallet" title="Wallet" aria-label="Wallet" style={linkStyle}>
 <Wallet size={20}/>
-{!collapsed && "Wallet"}
+<span className="sidebar-label">Wallet</span>
 </NavLink>
 
-<NavLink to="/transactions" style={linkStyle}>
+<NavLink to="/transactions" title="Transactions" aria-label="Transactions" style={linkStyle}>
 <ArrowLeftRight size={20}/>
-{!collapsed && "Transactions"}
+<span className="sidebar-label">Transactions</span>
 </NavLink>
 
-<NavLink to="/investments" style={linkStyle}>
+<NavLink to="/investments" title="Investments" aria-label="Investments" style={linkStyle}>
 <Building size={20}/>
-{!collapsed && "Investments"}
+<span className="sidebar-label">Investments</span>
 </NavLink>
 
-<NavLink to="/portfolio" style={linkStyle}>
+<NavLink to="/portfolio" title="Portfolio" aria-label="Portfolio" style={linkStyle}>
 <Briefcase size={20}/>
-{!collapsed && "Portfolio"}
+<span className="sidebar-label">Portfolio</span>
 </NavLink>
 
 </div>

@@ -24,11 +24,11 @@ background:isActive ? "#334155" : "transparent"
 
 return(
 
-<div style={sidebar}>
+<div className="app-sidebar" style={sidebar}>
 
 {/* LOGO */}
 
-<div style={logoBox}>
+<div className="sidebar-brand" style={logoBox}>
 <div style={logoCircle}>N</div>
 <h2 style={logoText}>Nivestha</h2>
 </div>
@@ -38,27 +38,27 @@ return(
 
 <NavLink to="/admin/dashboard" style={linkStyle}>
 <LayoutDashboard size={20}/>
-Dashboard
+<span className="sidebar-label" data-short="Home">Dashboard</span>
 </NavLink>
 
 <NavLink to="/admin/users" style={linkStyle}>
 <Users size={20}/>
-Users
+<span className="sidebar-label" data-short="Users">Users</span>
 </NavLink>
 
 <NavLink to="/admin/properties" style={linkStyle}>
 <Building2 size={20}/>
-Properties
+<span className="sidebar-label" data-short="Properties">Properties</span>
 </NavLink>
 
 <NavLink to="/admin/rent-distribution" style={linkStyle}>
 <Wallet size={20}/>
-Rent Distribution
+<span className="sidebar-label" data-short="Rent">Rent Distribution</span>
 </NavLink>
 
 <NavLink to="/admin/transactions" style={linkStyle}>
 <ArrowLeftRight size={20}/>
-Transactions
+<span className="sidebar-label" data-short="Transactions">Transactions</span>
 </NavLink>
 
 </div>

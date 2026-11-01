@@ -62,7 +62,7 @@ return ()=>document.removeEventListener("mousedown",onClickOutside);
 
 return(
 
-<div style={navbar}>
+<div className="app-navbar" style={navbar}>
 
 <div style={rightGroup} ref={panelRef}>
 
@@ -77,7 +77,7 @@ onClick={()=>setOpen((prev)=>!prev)}
 </button>
 
 {open && (
-<div style={panel}>
+<div className="notification-panel" style={panel}>
 <div style={panelHeader}>
 <p style={panelTitle}>Notifications</p>
 <button style={refreshBtn} onClick={fetchNotifications}>Refresh</button>
@@ -115,7 +115,7 @@ Mark as read
 </div>
 )}
 
-<div style={welcomeText}>Welcome, {user?.full_name}</div>
+<div className="welcome-text" style={welcomeText}>Welcome, {user?.full_name}</div>
 
 </div>
 

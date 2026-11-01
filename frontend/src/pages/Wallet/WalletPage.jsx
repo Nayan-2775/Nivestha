@@ -138,7 +138,7 @@ return(
 
 {/* BALANCE + ACTION SECTION */}
 
-<div style={topSection}>
+<div className="wallet-top-section" style={topSection}>
 
 {/* BALANCE CARD */}
 
@@ -184,7 +184,7 @@ Withdraw
 
 {/* WALLET STATS */}
 
-<div style={statsGrid}>
+<div className="wallet-stats-grid" style={statsGrid}>
 
 <div style={statCard}>
 <p>Total Deposited</p>
@@ -206,11 +206,12 @@ Withdraw
 
 {/* RECENT TRANSACTIONS */}
 
-<div style={transactionsCard}>
+<div className="wallet-transactions-card" style={transactionsCard}>
 
-<h3 style={{marginBottom:"15px"}}>Recent Transactions</h3>
+<h3 className="wallet-transactions-title" style={{marginBottom:"15px"}}>Recent Transactions</h3>
 
-<table style={table}>
+<div className="wallet-table-scroll">
+<table className="wallet-transactions-table" style={table}>
 
 <thead>
 <tr>
@@ -223,7 +224,7 @@ Withdraw
 <tbody>
 
 {transactions.map((tx)=>(
-<tr key={tx.transaction_id}>
+<tr className="wallet-transaction-row" key={tx.transaction_id}>
 
 <td style={td}>
 <span style={
@@ -251,6 +252,7 @@ tx.type==="deposit"
 </tbody>
 
 </table>
+</div>
 
 </div>
 
@@ -356,7 +358,8 @@ boxShadow:"0 6px 16px rgba(0,0,0,0.08)"
 
 const table={
 width:"100%",
-borderCollapse:"collapse"
+borderCollapse:"separate",
+borderSpacing:0
 };
 
 const th={

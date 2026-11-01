@@ -195,12 +195,13 @@ return(
 PROPERTY IMAGE
 =============================== */}
 
-<div style={imageContainer}>
+<div className="investment-image-container" style={imageContainer}>
 
 <img
 src={property.primary_image}
 alt={property.title}
 style={imageStyle}
+className="investment-image"
 />
 
 <div style={roiBadge}>
@@ -216,7 +217,7 @@ PROPERTY INFO
 
 <div style={cardBody}>
 
-<h3 style={propertyTitle}>
+<h3 className="investment-property-title" style={propertyTitle}>
 {property.title}
 </h3>
 
@@ -423,7 +424,7 @@ fontWeight:"600"
 
 const grid={
 display:"grid",
-gridTemplateColumns:"repeat(auto-fit,minmax(320px,1fr))",
+gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,280px),1fr))",
 gap:"25px"
 };
 
@@ -476,7 +477,9 @@ fontSize:"14px"
 
 const priceRow={
 display:"flex",
-justifyContent:"space-between"
+justifyContent:"space-between",
+gap:"12px",
+flexWrap:"wrap"
 };
 
 const label={
@@ -491,7 +494,9 @@ fontWeight:"600"
 const horizonRow={
 display:"flex",
 justifyContent:"space-between",
-alignItems:"center"
+alignItems:"center",
+gap:"10px",
+flexWrap:"wrap"
 };
 
 const yearsSelect={
@@ -608,7 +613,8 @@ fontWeight:"500"
 const modalButtonRow={
 display:"flex",
 gap:"10px",
-marginTop:"8px"
+marginTop:"8px",
+flexWrap:"wrap"
 };
 
 const cancelBtn={
@@ -641,7 +647,7 @@ zIndex:1400,
 display:"flex",
 alignItems:"flex-start",
 gap:"10px",
-width:"320px",
+width:"min(320px,calc(100vw - 28px))",
 padding:"14px 14px",
 borderRadius:"14px",
 background:"linear-gradient(160deg,#ecfdf5 0%,#d1fae5 100%)",

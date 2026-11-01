@@ -8,15 +8,15 @@ export default function AdminLayout(){
 
 return(
 
-<div style={container}>
+<div className="app-shell" style={{background:"#f5f7fb"}}>
 
 <AdminSidebar/>
 
-<div style={mainContent}>
+<div className="app-main admin-main">
 
 <Navbar/>
 
-<div style={pageContent}>
+<div className="app-page">
 <Outlet/>
 </div>
 
@@ -30,23 +30,3 @@ return(
 
 }
 
-const container={
-display:"flex",
-minHeight:"100vh",
-background:"#f5f7fb"
-};
-
-const mainContent={
-flex:1,
-display:"flex",
-flexDirection:"column",
-marginLeft:"220px"
-};
-
-const pageContent={
-flex:1,
-padding:"30px",
-display:"flex",
-flexDirection:"column",
-gap:"25px"
-};

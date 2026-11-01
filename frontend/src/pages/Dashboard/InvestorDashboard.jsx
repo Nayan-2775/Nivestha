@@ -99,7 +99,7 @@ export default function InvestorDashboard(){
     <div style={dashboardContainer}>
       <h2 style={titleStyle}>Investor Dashboard</h2>
 
-      <div style={cardsGrid}>
+      <div className="investor-stats-grid" style={cardsGrid}>
         <div style={cardStyle}>
           <div style={cardHeader}>
             <Wallet size={20} color="#2563eb"/>
@@ -133,7 +133,7 @@ export default function InvestorDashboard(){
         </div>
       </div>
 
-      <div style={chartCard}>
+      <div className="investor-chart-card" style={chartCard}>
         <div style={chartTopRow}>
           <div>
             <h3 style={chartTitle}>Portfolio Growth</h3>
@@ -159,7 +159,7 @@ export default function InvestorDashboard(){
           </div>
         </div>
 
-        <div style={summaryStrip}>
+        <div className="investor-summary-strip" style={summaryStrip}>
           <div style={summaryPill}>
             <span style={summaryLabel}>Invested in selected range</span>
             <strong style={summaryValue}>{formatCurrency(chartSummary.invested)}</strong>
@@ -170,7 +170,7 @@ export default function InvestorDashboard(){
           </div>
         </div>
 
-        <div style={chartWrapper}>
+        <div className="investor-chart-wrapper" style={chartWrapper}>
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={stats.growth} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <defs>
@@ -186,7 +186,7 @@ export default function InvestorDashboard(){
 
               <CartesianGrid strokeDasharray="4 4" stroke="#dbe4f0" />
               <XAxis dataKey="label" tick={{ fill: "#64748b", fontSize: 12 }} axisLine={false} tickLine={false} />
-              <YAxis tickFormatter={compactCurrency} tick={{ fill: "#64748b", fontSize: 12 }} axisLine={false} tickLine={false} width={84} />
+              <YAxis tickFormatter={compactCurrency} tick={{ fill: "#64748b", fontSize: 11 }} axisLine={false} tickLine={false} width={64} />
               <Tooltip
                 formatter={(value, _name, item) => [formatCurrency(value), item?.name || "Value"]}
                 labelStyle={{ color: "#0f172a", fontWeight: 600 }}
